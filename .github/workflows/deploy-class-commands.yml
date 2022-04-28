@@ -10,6 +10,7 @@ on:
 
 env:
   PROJECT_PATH: ClassCommands/ClassCommands.csproj
+  MSBUILD_PATH: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com
 
 jobs:
   deploy:
@@ -27,7 +28,7 @@ jobs:
 
       - run: dotnet publish ${{ env.PROJECT_PATH }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
       
-      - run: devenv WPFTutorials.sln /build Debug /project Setup /projectconfig Debug
+      - run: ${{ env.MSBUILD_PATH }} WPFTutorials.sln /build Debug /project Setup /projectconfig Debug
 
       - uses: actions/create-release@v1
         id: create_release
