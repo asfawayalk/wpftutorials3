@@ -1,0 +1,32 @@
+name: VS Tools Action
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      MSBUILD_PATH: C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com
+      SLN_PATH: Abushakir-Net.sln
+      DOTNET_VERSION: 6.0.x
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        submodules: recursive
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+        include-prerelease: true
+    - name: Restore
+      run: dotnet restore
+    - name: compile debug
+      shell: cmd
+      run: |
+        "%MSBUILD_PATH%" "%SLN_PATH%" /build debug
+    - name: compile release
+      shell: cmd
+      run: |
+        "%MSBUILD_PATH%" "%SLN_PATH%" /build release
