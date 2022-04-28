@@ -1,4 +1,4 @@
-name: "Deploy vdproj"
+name: "Deploy vdproj2"
 
 on:
   push:
