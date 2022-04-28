@@ -33,16 +33,7 @@ jobs:
       
       
 
-      - name: Restore
-        run: dotnet restore
-      - name: compile debug
-        shell: cmd
-        run: |
-          "%MSBUILD_PATH%" "%SLN_PATH%" /build debug
-      - name: compile release
-        shell: cmd
-        run: |
-          "%MSBUILD_PATH%" "%SLN_PATH%" /build release
+      - run: "%MSBUILD_PATH%" WPFTutorials.sln /build Debug /project Setup /projectconfig Debug
 
 
 
